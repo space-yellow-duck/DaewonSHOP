@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>상품 상세</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/productDetail.css}">
+</head>
+<body>
+<div th:replace="layout/header :: header"></div>
+<div class="detail-wrap">
+
+    <!-- 이미지 영역 -->
+    <div class="detail-image">
+
+        <!-- 메인 이미지 -->
+        <img id="mainImage"
+             th:src="${images[0].productImageUrl}"
+             alt="상품이미지">
+
+        <!-- 썸네일 -->
+        <div class="thumb-list">
+            <img th:each="img : ${images}"
+                 th:src="${img.productImageUrl}"
+                 class="thumb"
+                 onclick="changeImage(this)">
+        </div>
+
+    </div>
+
+
+    <!-- 상품 정보 -->
+    <div class="detail-info">
+
+        <div class="category" th:text="${product.category}">
+            카테고리
+        </div>
+
+        <div class="product-name"
+             th:text="${product.name}">
+            상품 이름
+        </div>
+
+        <div class="price"
+             th:text="${product.price + '원'}">
+            12000원
+        </div>
+
+
+        <div class="info-box">
+
+            <div class="info-row">
+                <div class="info-label">상품번호</div>
+                <div class="info-value"
+                     th:text="${product.id}"></div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">재고</div>
+                <div class="info-value"
+                     th:text="${product.stock}"></div>
+            </div>
+
+        </div>
+
+
+        <div class="description"
+             th:text="${product.description}">
+        </div>
+
+
+        <div class="quantity-box">
+
+    <button type="button" class="qty-btn" onclick="minusQty()">-</button>
+
+    <input type="text" id="quantity" value="1" readonly>
+
+    <button type="button" class="qty-btn" onclick="plusQty()">+</button>
+
+</div>
+
+
+<div class="btn-area">
+    <button 
+    class="btn-black"
+    th:attr="data-product-id=${product.id}"
+    onclick="addCart(this)">
+장바구니
+</button>
+    <a href="#" class="btn-white">구매하기</a>
+</div>
+
+    </div>
+
+</div>
+<div th:replace="layout/footer :: footer"></div>
+
+<script th:src="@{/js/productDetail.js}"></script>
+</body>
+</html>

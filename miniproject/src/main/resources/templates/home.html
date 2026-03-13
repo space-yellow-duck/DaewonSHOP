@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>DAEWON SHOP</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+	<div th:replace="layout/header :: header"></div>
+
+	<section class="hero">
+		<div class="container">
+			<h1>깔끔한 쇼핑 경험</h1>
+			<p>미니멀한 디자인으로 상품을 더 돋보이게</p>
+			<a href="/products" class="btn">상품 보러가기</a>
+		</div>
+	</section>
+
+	<section class="products">
+		<div class="container">
+
+			<h2>인기 상품</h2>
+
+			<div class="product-grid">
+
+				<div class="card" th:each="p : ${products}">
+					<a th:href="@{/products/{id}(id=${p.id})}"> <img th:src="${p.imageUrl}" alt="" />
+						<div class="card-body">
+							<h3 th:text="${p.name}"></h3>
+							<p class="price" th:text="${p.price} + '원'"></p>
+						</div>
+					</a>
+				</div>
+
+		</div>
+
+		</div>
+	</section>
+
+	<div th:replace="layout/footer :: footer"></div>
+
+</body>
+</html>
