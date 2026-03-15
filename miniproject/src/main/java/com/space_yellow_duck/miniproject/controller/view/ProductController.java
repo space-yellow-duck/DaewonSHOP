@@ -1,4 +1,4 @@
-package com.space_yellow_duck.miniproject.controller;
+package com.space_yellow_duck.miniproject.controller.view;
 
 
 import java.util.List;

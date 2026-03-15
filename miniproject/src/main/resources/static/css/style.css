@@ -68,6 +68,21 @@ nav a{
   color:white;
   border-radius:6px;
 }
+.msg.hidden{
+	display:none;
+}
+.msg {
+    font-size: 13px;
+    margin-bottom: 12px;
+    min-height: 18px;
+    display: block;
+}
+.msg.error {
+    color: #d93025;
+}
+.msg.success {
+    color: #1a7f37;
+}
 
 /* product */
 

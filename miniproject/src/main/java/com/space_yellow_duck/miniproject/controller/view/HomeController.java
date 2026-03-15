@@ -1,4 +1,4 @@
-package com.space_yellow_duck.miniproject.controller;
+package com.space_yellow_duck.miniproject.controller.view;
 
 import java.util.List;
 
@@ -21,7 +21,6 @@ public class HomeController {
         List<Product> products = productService.findTopProducts();
 
         model.addAttribute("products", products);
-
         return "home";
     }
 }

@@ -1,12 +1,14 @@
 package com.space_yellow_duck.miniproject.Repository;
 
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.space_yellow_duck.miniproject.Entity.Users;
 
-public interface UserRepository extends JpaRepository<Users, Long> {
+public interface UsersRepository extends JpaRepository<Users, Long> {
 
-    Users findByUsername(String username);
+    Optional<Users> findByUsername(String username);
 
 }
