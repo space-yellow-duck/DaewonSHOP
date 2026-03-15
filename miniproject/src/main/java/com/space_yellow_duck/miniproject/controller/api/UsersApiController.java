@@ -25,4 +25,10 @@ public class UsersApiController {
 		boolean exists = usersService.findByUsername(username);
 		return Map.of("available", !exists);
 	}
+	@PostMapping("/signup")
+	public Map signup(@RequestBody Users users) {
+		boolean exists = usersService.findByUsername(users.getUsername());
+		if(exists) return Map.of("success",!exists,"error_msg","이미 존재하는 로그인 아이디입니다 다른 아이디로 가입해주세요.");
+		return Map.of("success",true);
+	}
 }
