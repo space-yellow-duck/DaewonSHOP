@@ -1,5 +1,6 @@
 package com.space_yellow_duck.miniproject.controller.api;
 
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +21,8 @@ public class UsersApiController {
 		this.usersService = usersService;
 	}
 	@GetMapping("/check-username")
-	public boolean checkUsername(@RequestParam String username ) {
-		Optional<Users> users = usersService.findByUsername(username);
-		if(users.isPresent()) {
-			return true;
-		}
-		return false;
+	public Map<String,Boolean> checkUsername(@RequestParam String username ) {
+		boolean exists = usersService.findByUsername(username);
+		return Map.of("available", !exists);
 	}
 }

@@ -13,10 +13,9 @@ public class UsersService {
 	public UsersService(UsersRepository usersRepository) {
 		this.usersRepository = usersRepository;
 	}
-	public Optional<Users> findByUsername(String username) {
+	public boolean findByUsername(String username) {
 		Optional<Users> users = usersRepository.findByUsername(username);
-		
-		
-		return users;
+		if(users.isPresent()) return true;
+		return false;
 	}
 }
