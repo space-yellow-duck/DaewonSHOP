@@ -18,4 +18,7 @@ public class UsersService {
 		if(users.isPresent()) return true;
 		return false;
 	}
+	public Users save(Users users) {
+		return usersRepository.save(users);
+	}
 }

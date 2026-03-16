@@ -7,11 +7,37 @@ let matchPwd = false;
 const usernameInput = document.getElementById("username");
 const form = document.getElementById("form");
 form.addEventListener("submit", validateSubmit)
-function validateSubmit(e) {
-	if (!(isAvailableUsername && isAvailablePwd && matchPwd)) {
-		e.preventDefault();
-		console.log("aaa")
+async function validateSubmit(e) {
+	e.preventDefault();
+	const formData = new FormData(form);
+	if ((isAvailableUsername && isAvailablePwd && matchPwd)) {
+		console.log("안되냐?ㄴ")
+		try {
+			const res = await fetch("/api/users/signup", {
+				method: "POST",
+				body: formData
+			});
+
+			if (!res.ok) {
+				const err = await res.json();
+				showError(err.message);   // 안내 문구 표시
+				return;
+			}
+
+			// 성공 처리
+			alert("회원가입 성공")
+			location.href = "/";
+		} catch (e) {
+			showError("네트워크 오류가 발생했습니다.");
+		}
 	}
+
+}
+
+function showError(message) {
+    const errorBox = document.getElementById("error-message");
+    errorBox.textContent = message;
+    errorBox.style.display = "block";
 }
 usernameInput.addEventListener("Input", () => {
 	isAvailableUsername = false;
@@ -29,8 +55,6 @@ function checkUsername() {
 	fetch(`/api/users/check-username?username=${username}`)
 		.then(res => res.json())
 		.then(data => {
-
-
 
 			if (data.available) {
 				msg.innerText = "사용 가능한 아이디입니다.";
