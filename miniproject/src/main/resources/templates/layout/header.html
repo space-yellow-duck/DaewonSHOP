@@ -1,22 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<header>
-  <div class="container header-inner">
-    <div class="logo">DAEWON SHOP</div>
+	<header>
+		<div class="container header-inner">
+			<div class="logo">DAEWON SHOP</div>
 
-    <nav>
-      <a href="/">홈</a>
-      <a href="/products">상품</a>
-      <a href="/cart">장바구니</a>
-      <a href="/orders">주문내역</a>
-      <a href="/login">로그인</a>
-    </nav>
-  </div>
-</header>
+			<nav>
+				<a href="/">홈</a> <a href="/products">상품</a> <a href="/cart">장바구니</a>
+				<a href="/orders">주문내역</a>
+					<a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
+
+				<div sec:authorize="isAuthenticated()">
+					<span sec:authentication="name"></span>님 환영합니다.
+
+					<form th:action="@{/logout}" method="post">
+						<button type="submit">로그아웃</button>
+					</form>
+				</div>
+			</nav>
+		</div>
+	</header>
 </body>
 </html>
