@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.space_yellow_duck.miniproject.DTO.CustomUserDetails;
 import com.space_yellow_duck.miniproject.Entity.Users;
 import com.space_yellow_duck.miniproject.Repository.UsersRepository;
 
@@ -27,12 +28,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (userInfo.isEmpty()) {
             throw new UsernameNotFoundException("유저 없음");
         }
-        System.out.println("유저 있음");
         Users user = userInfo.get();
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getUsername())
-                .password(user.getPassword()) // 👉 DB에 암호화된 값
-                .roles(user.getRole())
-                .build();
+        user.setAddress("USER");
+        return new CustomUserDetails(user);
     }
+    
 }

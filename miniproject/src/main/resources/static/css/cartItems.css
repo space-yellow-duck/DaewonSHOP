@@ -1,0 +1,121 @@
+@charset "UTF-8";
+/* 전체 */
+.cart-page {
+  margin-top: 40px;
+}
+
+.page-title {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+/* 비어있을 때 */
+.empty-cart {
+  text-align: center;
+  padding: 100px 0;
+}
+
+.empty-cart p {
+  margin-bottom: 20px;
+  color: #777;
+}
+
+/* 레이아웃 */
+.cart-wrapper {
+  display: flex;
+  gap: 40px;
+}
+
+/* 왼쪽 영역 */
+.cart-items {
+  flex: 3;
+}
+
+/* 아이템 */
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+/* 상품 정보 */
+.item-info {
+  flex: 1;
+}
+
+.item-name {
+  font-weight: 500;
+}
+
+.item-price {
+  margin-top: 5px;
+  color: #555;
+}
+
+/* 수량 */
+.item-quantity {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.item-quantity button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+}
+
+/* 오른쪽 아이템 영역 */
+.item-total {
+  text-align: right;
+}
+
+.item-total p {
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+}
+
+/* 오른쪽 요약 */
+.cart-summary {
+  flex: 1;
+}
+
+.summary-box {
+  border: 1px solid #eee;
+  padding: 20px;
+}
+
+.summary-box p {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.summary-box .total {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.checkout-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+}

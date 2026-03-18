@@ -29,7 +29,6 @@ public class UsersApiController {
 	}
 	@PostMapping("/signup")
 	public boolean signup(Users users) {
-		System.out.println(users.getUsername()+users.getPassword());
 		PasswordValidater passwordValidater = new PasswordValidater();
 		passwordValidater.validate(users.getPassword());
 		users.setRole("USER");

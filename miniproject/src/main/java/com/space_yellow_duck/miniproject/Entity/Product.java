@@ -32,4 +32,6 @@ public class Product {
     
     @OneToMany(mappedBy = "product")
     private List<ProductImages> images;
+    @OneToMany(mappedBy = "product")
+    private List<CartItem> cartItem;
 }
