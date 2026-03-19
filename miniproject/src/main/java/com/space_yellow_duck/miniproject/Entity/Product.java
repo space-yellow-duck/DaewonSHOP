@@ -2,6 +2,7 @@ package com.space_yellow_duck.miniproject.Entity;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,21 +18,17 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id")
     private Long id;
 
     private String name;
-    private String category;
-    private String subCategory;
     private String fit;
-    private String color;
-    private String size;
     private int price;
-    private int stock;
     private String description;
-    private String imageUrl;
+    
     
     @OneToMany(mappedBy = "product")
-    private List<ProductImages> images;
+    private List<ProductImage> image;
     @OneToMany(mappedBy = "product")
     private List<CartItem> cartItem;
 }

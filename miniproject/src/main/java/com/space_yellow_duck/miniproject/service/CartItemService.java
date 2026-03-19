@@ -8,33 +8,33 @@ import org.springframework.stereotype.Service;
 import com.space_yellow_duck.miniproject.DTO.PuttedItem;
 import com.space_yellow_duck.miniproject.Entity.CartItem;
 import com.space_yellow_duck.miniproject.Entity.Product;
-import com.space_yellow_duck.miniproject.Entity.Users;
+import com.space_yellow_duck.miniproject.Entity.User;
 import com.space_yellow_duck.miniproject.Repository.CartItemRepository;
 import com.space_yellow_duck.miniproject.Repository.ProductRepository;
-import com.space_yellow_duck.miniproject.Repository.UsersRepository;
+import com.space_yellow_duck.miniproject.Repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 
 @Service
 public class CartItemService {
 	private final CartItemRepository cartItemRepository;
-	private final UsersRepository usersRepository;
+	private final UserRepository usersRepository;
 	private final ProductRepository productRepository;
 
-	public CartItemService(CartItemRepository cartItemRepository, UsersRepository usersRepository,
+	public CartItemService(CartItemRepository cartItemRepository, UserRepository usersRepository,
 			ProductRepository productRepository) {
 		this.cartItemRepository = cartItemRepository;
 		this.usersRepository = usersRepository;
 		this.productRepository = productRepository;
 	}
 
-	public List<CartItem> getCartItems(Users user) {
+	public List<CartItem> getCartItems(User user) {
 
 		return cartItemRepository.findAllByUsers(user);
 	}
 
 	@Transactional
-	public boolean addCartItem(Users user, PuttedItem item) {
+	public boolean addCartItem(User user, PuttedItem item) {
 
 		Optional<Product> product = productRepository.findById(item.getProductId());
 		if (product.isEmpty()) {
@@ -50,7 +50,7 @@ public class CartItemService {
 		} else {
 			// 없음 → 새로 생성
 			CartItem cartItem = new CartItem();
-			cartItem.setUsers(user);
+			cartItem.setUser(user);
 			cartItem.setProduct(product.get());
 			cartItem.setQuantity(item.getQuantity());
 

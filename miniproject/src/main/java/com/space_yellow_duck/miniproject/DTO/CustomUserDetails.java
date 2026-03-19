@@ -7,17 +7,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.space_yellow_duck.miniproject.Entity.Users;
+import com.space_yellow_duck.miniproject.Entity.User;
 
 public class CustomUserDetails implements UserDetails {
 
-    private final Users user;
+    private final User user;
 
-    public CustomUserDetails(Users user) {
+    public CustomUserDetails(User user) {
         this.user = user;
     }
 
-    public Users getUser() { // 👉 이거 추가
+    public User getUser() { // 👉 이거 추가
         return user;
     }
 

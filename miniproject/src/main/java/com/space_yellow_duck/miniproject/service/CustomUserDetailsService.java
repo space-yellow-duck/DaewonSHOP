@@ -8,27 +8,27 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.space_yellow_duck.miniproject.DTO.CustomUserDetails;
-import com.space_yellow_duck.miniproject.Entity.Users;
-import com.space_yellow_duck.miniproject.Repository.UsersRepository;
+import com.space_yellow_duck.miniproject.Entity.User;
+import com.space_yellow_duck.miniproject.Repository.UserRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UsersRepository usersRepository;
+    private final UserRepository usersRepository;
 
-    public CustomUserDetailsService(UsersRepository usersRepository) {
+    public CustomUserDetailsService(UserRepository usersRepository) {
         this.usersRepository = usersRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
 
-        Optional<Users> userInfo = usersRepository.findByUsername(username);
+        Optional<User> userInfo = usersRepository.findByUsername(username);
         
         if (userInfo.isEmpty()) {
             throw new UsernameNotFoundException("유저 없음");
         }
-        Users user = userInfo.get();
+        User user = userInfo.get();
         user.setAddress("USER");
         return new CustomUserDetails(user);
     }

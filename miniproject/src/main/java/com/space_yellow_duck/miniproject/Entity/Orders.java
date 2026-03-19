@@ -10,22 +10,27 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
+
 @Getter
 @Setter
 @Entity
-public class CartItem {
+public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="cart_item_id")
+	@Column(name = "orders_id")
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="product_id")
-	private Product product;
+	private int totalPrice;
+	private String status;
+	private String recipientName;
+	private String phone;
+	private String addressLine1;
+	private String addressLine2;
+	private String zipcode;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name="user_id")
 	private User user;
 	
-	private int quantity;
+	
 }

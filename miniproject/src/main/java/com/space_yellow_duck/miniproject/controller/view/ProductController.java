@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.space_yellow_duck.miniproject.Entity.Product;
-import com.space_yellow_duck.miniproject.Entity.ProductImages;
+import com.space_yellow_duck.miniproject.Entity.ProductImage;
 import com.space_yellow_duck.miniproject.service.ProductImageService;
 import com.space_yellow_duck.miniproject.service.ProductService;
 
@@ -27,7 +27,7 @@ public class ProductController {
     @GetMapping("/products/{id}")
     public String productDetail(@PathVariable Long id, Model model) {
         Product product = productService.findById(id);
-        List<ProductImages> images = productImagesService.findByProductId(product.getId());
+        List<ProductImage> images = productImagesService.findByProductId(product.getId());
         model.addAttribute("images",images);
         model.addAttribute("product", product);
 

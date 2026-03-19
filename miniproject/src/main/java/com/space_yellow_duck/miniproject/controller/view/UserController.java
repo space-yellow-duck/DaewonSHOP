@@ -8,14 +8,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.space_yellow_duck.miniproject.Entity.Users;
-import com.space_yellow_duck.miniproject.service.UsersService;
+import com.space_yellow_duck.miniproject.service.UserService;
 
 
 @Controller
-public class UsersController {
-	private final UsersService usersService;
-	public UsersController(UsersService usersService) {
+public class UserController {
+	private final UserService usersService;
+	public UserController(UserService usersService) {
 		this.usersService = usersService;
 	}
 	
