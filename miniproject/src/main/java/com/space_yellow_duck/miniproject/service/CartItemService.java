@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 import com.space_yellow_duck.miniproject.DTO.PuttedItem;
 import com.space_yellow_duck.miniproject.Entity.CartItem;
 import com.space_yellow_duck.miniproject.Entity.Product;
+import com.space_yellow_duck.miniproject.Entity.ProductDetail;
 import com.space_yellow_duck.miniproject.Entity.User;
 import com.space_yellow_duck.miniproject.Repository.CartItemRepository;
-import com.space_yellow_duck.miniproject.Repository.ProductRepository;
+import com.space_yellow_duck.miniproject.Repository.ProductDetailRepository;
 import com.space_yellow_duck.miniproject.Repository.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -18,29 +19,29 @@ import jakarta.transaction.Transactional;
 @Service
 public class CartItemService {
 	private final CartItemRepository cartItemRepository;
-	private final UserRepository usersRepository;
-	private final ProductRepository productRepository;
+	private final UserRepository userRepository;
+	private final ProductDetailRepository productDetailRepository;
 
-	public CartItemService(CartItemRepository cartItemRepository, UserRepository usersRepository,
-			ProductRepository productRepository) {
+	public CartItemService(CartItemRepository cartItemRepository, UserRepository userRepository,
+			ProductDetailRepository productDetailRepository) {
 		this.cartItemRepository = cartItemRepository;
-		this.usersRepository = usersRepository;
-		this.productRepository = productRepository;
+		this.userRepository = userRepository;
+		this.productDetailRepository = productDetailRepository;
 	}
 
 	public List<CartItem> getCartItems(User user) {
 
-		return cartItemRepository.findAllByUsers(user);
+		return cartItemRepository.findAllByUser(user);
 	}
 
 	@Transactional
 	public boolean addCartItem(User user, PuttedItem item) {
 
-		Optional<Product> product = productRepository.findById(item.getProductId());
-		if (product.isEmpty()) {
+		Optional<ProductDetail> productDetail = productDetailRepository.findById(item.getProductDetailId());
+		if (productDetail.isEmpty()) {
 			throw new IllegalArgumentException("존재하지 않는 상품입니다.");
 		}
-		Optional<CartItem> optional = cartItemRepository.findByUsersAndProduct(user, product.get());
+		Optional<CartItem> optional = cartItemRepository.findByUserAndProductDetail(user, productDetail.get());
 
 		if (optional.isPresent()) {
 			// 이미 있음 → 수량 증가
@@ -51,7 +52,7 @@ public class CartItemService {
 			// 없음 → 새로 생성
 			CartItem cartItem = new CartItem();
 			cartItem.setUser(user);
-			cartItem.setProduct(product.get());
+			cartItem.setProductDetail(productDetail.get());
 			cartItem.setQuantity(item.getQuantity());
 
 			CartItem saved = cartItemRepository.save(cartItem);

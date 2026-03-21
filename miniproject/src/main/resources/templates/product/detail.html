@@ -1,102 +1,144 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="_csrf" th:content="${_csrf.token}">
+<meta charset="UTF-8">
+<meta name="_csrf" th:content="${_csrf.token}">
 <meta name="_csrf_header" th:content="${_csrf.headerName}">
-    <title>상품 상세</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" th:href="@{/css/productDetail.css}">
+<title>상품 상세</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/productDetail.css}">
 </head>
 <body>
-<div th:replace="layout/header :: header"></div>
-<div class="detail-wrap">
+	<div th:replace="layout/header :: header"></div>
+	<div class="detail-wrap">
 
-    <!-- 이미지 영역 -->
-    <div class="detail-image">
+		<!-- 이미지 영역 -->
+		<div class="detail-image">
 
-        <!-- 메인 이미지 -->
-        <img id="mainImage"
-             th:src="${images[0].productImageUrl}"
-             alt="상품이미지">
+			<!-- 메인 이미지 -->
+			<img id="mainImage" th:src="${images[0].imageUrl}" alt="상품이미지">
 
-        <!-- 썸네일 -->
-        <div class="thumb-list">
-            <img th:each="img : ${images}"
-                 th:src="${img.productImageUrl}"
-                 class="thumb"
-                 onclick="changeImage(this)">
-        </div>
+			<!-- 썸네일 -->
+			<div class="thumb-list">
+				<img th:each="img : ${images}" th:src="${img.imageUrl}"
+					class="thumb" onclick="changeImage(this)">
+			</div>
 
-    </div>
+		</div>
 
 
-    <!-- 상품 정보 -->
-    <div class="detail-info">
+		<!-- 상품 정보 -->
+		<div class="detail-info">
 
-        <div class="category" th:text="${product.category}">
-            카테고리
-        </div>
+			<div class="category" th:text="${product.category.name}">카테고리</div>
 
-        <div class="product-name"
-             th:text="${product.name}">
-            상품 이름
-        </div>
+			<div class="product-name" th:text="${product.name}">상품 이름</div>
 
-        <div class="price"
-             th:text="${product.price + '원'}">
-            12000원
-        </div>
+			<div class="price" th:text="${product.price + '원'}"></div>
 
 
-        <div class="info-box">
+			<div class="info-box">
 
-            <div class="info-row">
-                <div class="info-label">상품번호</div>
-                <div class="info-value"
-                     th:text="${product.id}"></div>
-            </div>
+				<div class="info-row">
+					<div class="info-label">상품번호</div>
+					<div class="info-value" th:text="${product.id}"></div>
+				</div>
 
-            <div class="info-row">
-                <div class="info-label">재고</div>
-                <div class="info-value"
-                     th:text="${product.stock}"></div>
-            </div>
+				<div class="info-row">
+					<div class="info-label">재고</div>
+					<div class="info-value"></div>
+				</div>
 
-        </div>
+			</div>
 
 
-        <div class="description"
-             th:text="${product.description}">
-        </div>
+			<div class="description" th:text="${product.description}"></div>
+
+			<!-- 옵션 선택 영역 추가 -->
+
+			<div class="option-box">
+
+				```
+				<!-- SINGLE -->
+				<div th:if="${saleType.name() == 'SINGLE'}" class="option-group">
+					<div class="option-title">옵션 선택</div>
+
+					<select id="colorSelect" class="option-select"
+						onchange="changeColor(this)">
+						<option value="">색상 선택</option>
+
+						<option th:each="entry : ${groupedDetails}"
+							th:value="${entry.key}" th:text="${entry.key}"></option>
+
+					</select> <select id="sizeSelect" class="option-select" onchange="onSelectComplete()">
+						<option value="">사이즈 선택</option>
+					</select>
+				</div>
 
 
-        <div class="quantity-box">
+				<!-- MULTI PACK -->
+				<div th:if="${saleType.name() == 'MULTI_PACK'}" class="option-group">
+					<div class="option-title">
+						옵션 선택 ( <span th:text="${packQuantity}"></span>개 구성 )
+					</div>
 
-    <button type="button" class="qty-btn" onclick="minusQty()">-</button>
+					<div th:each="i : ${#numbers.sequence(1, packQuantity)}"
+						class="option-row">
+						<span class="option-index" th:text="${i} + '번'"></span> <select
+							class="option-select multiOption">
+							<option value="">옵션 선택</option>
+							<option th:each="d : ${details}" th:value="${d.id}"
+								th:text="${d.color + ' / ' + d.size}"></option>
+						</select>
+					</div>
+				</div>
 
-    <input type="text" id="quantity" value="1" readonly>
 
-    <button type="button" class="qty-btn" onclick="plusQty()">+</button>
+				<!-- SET -->
+				<div th:if="${saleType.name() == 'SET'}" class="option-group">
+					<div class="option-title">세트 구성 선택</div>
 
-</div>
+					<div th:each="item, stat : ${setItems}" class="option-row">
+
+						<span class="option-index" th:text="${item.childProduct.name}"></span>
+
+						<select class="option-select setOption">
+							<option value="">옵션 선택</option>
+							<option th:each="d : ${item.childProduct.details}"
+								th:value="${d.id}" th:text="${d.color + ' / ' + d.size}">
+							</option>
+						</select>
+
+					</div>
+				</div>
+				```
+
+			</div>
+
+			<div id="selectedOptions" class="selected-options"></div>
 
 
-<div class="btn-area">
-    <button 
-    class="btn-black"
-    th:attr="data-product-id=${product.id}"
-    onclick="addCart(this)">
-장바구니
-</button>
-    <a href="#" class="btn-white">구매하기</a>
-</div>
+			<div class="btn-area">
+				<button class="btn-black" th:attr="data-product-id=${product.id}"
+					onclick="addCart(this)">장바구니</button>
+				<a href="#" class="btn-white">구매하기</a>
+			</div>
 
-    </div>
+		</div>
 
-</div>
-<div th:replace="layout/footer :: footer"></div>
-
-<script th:src="@{/js/productDetail.js}"></script>
+	</div>
+	<div th:replace="layout/footer :: footer"></div>
+	
+	<script th:inline="javascript" th:if="${saleType.name() == 'SINGLE'}">
+	const groupedDetails = JSON.parse(/*[[${groupedJson}]]*/);
+	</script>
+	<script type="text/javascript" th:if="${saleType.name() == 'SINGLE'}"
+		th:src="@{/js/detailSingle.js}"></script>
+	<script type="text/javascript"
+		th:if="${saleType.name() == 'MULTI_PACK'}"
+		th:src="@{/js/detailMultiPack.js}"></script>
+	<script type="text/javascript" th:if="${saleType.name() == 'SET'}"
+		th:src="@{/js/detailSet.js}"></script>
+	<script th:src="@{/js/productDetail.js}"></script>
 </body>
 </html>

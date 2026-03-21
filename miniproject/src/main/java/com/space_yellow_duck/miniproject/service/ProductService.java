@@ -19,7 +19,7 @@ public class ProductService {
     }
     public List<Product> findTopProducts() {
     	
-    	List<Product> list = productRepository.findAll();
+    	List<Product> list = productRepository.findAllWithImages();
     	
     	
     	return list;

@@ -7,9 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.space_yellow_duck.miniproject.Entity.CartItem;
 import com.space_yellow_duck.miniproject.Entity.Product;
+import com.space_yellow_duck.miniproject.Entity.ProductDetail;
 import com.space_yellow_duck.miniproject.Entity.User;
 
 public interface CartItemRepository extends JpaRepository<CartItem, Long>{
-	Optional<CartItem> findByUsersAndProduct(User user, Product product);
-	List<CartItem> findAllByUsers(User user);
+	Optional<CartItem> findByUserAndProductDetail(User user, ProductDetail productDetail);
+	List<CartItem> findAllByUser(User user);
 }

@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PuttedItem {
-	private Long productId;
+	private Long productDetailId;
 	private int quantity;
 }

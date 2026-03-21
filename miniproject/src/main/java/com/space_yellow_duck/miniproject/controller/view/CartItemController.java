@@ -29,7 +29,7 @@ public class CartItemController {
 		int totalPrice = 0;
 		if(!cartItems.isEmpty()) {
 			for (CartItem cartItem : cartItems) {
-				totalPrice += cartItem.getProduct().getPrice() * cartItem.getQuantity();
+				totalPrice += cartItem.getProductDetail().getProduct().getPrice() * cartItem.getQuantity();
 			}
 		}
 		model.addAttribute("totalPrice",totalPrice);

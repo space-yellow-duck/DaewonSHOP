@@ -26,7 +26,8 @@
 			<div class="product-grid">
 
 				<div class="card" th:each="p : ${products}">
-					<a th:href="@{/products/{id}(id=${p.id})}"> <img th:src="${p.imageUrl}" alt="" />
+					<a th:href="@{/products/{id}(id=${p.id})}"> <img th:if="${p.images.size() > 0}"
+             th:src="${p.images[0].imageUrl}" />
 						<div class="card-body">
 							<h3 th:text="${p.name}"></h3>
 							<p class="price" th:text="${p.price} + '원'"></p>

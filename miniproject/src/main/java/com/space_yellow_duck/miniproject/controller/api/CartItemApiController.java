@@ -40,8 +40,8 @@ public class CartItemApiController {
 	    CartItemResponse response = new CartItemResponse();
 	    CartItem cartItem = cartItemService.updateQuantity(id, diff);
 	    response.setId(cartItem.getId());
-	    response.setProductId(cartItem.getProduct().getId());
-	    response.setPrice(cartItem.getProduct().getPrice());
+	    response.setProductId(cartItem.getProductDetail().getId());
+	    response.setPrice(cartItem.getProductDetail().getProduct().getPrice());
 	    response.setQuantity(cartItem.getQuantity());
 	    return response;
 	}

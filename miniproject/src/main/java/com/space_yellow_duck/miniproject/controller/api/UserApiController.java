@@ -16,7 +16,7 @@ import com.space_yellow_duck.miniproject.model.PasswordValidater;
 import com.space_yellow_duck.miniproject.service.UserService;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class UserApiController {
 	private final UserService userService;
 	public UserApiController(UserService userService) {
