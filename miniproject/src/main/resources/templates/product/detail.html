@@ -44,10 +44,6 @@
 					<div class="info-value" th:text="${product.id}"></div>
 				</div>
 
-				<div class="info-row">
-					<div class="info-label">재고</div>
-					<div class="info-value"></div>
-				</div>
 
 			</div>
 
@@ -88,7 +84,7 @@
 							class="option-select multiOption">
 							<option value="">옵션 선택</option>
 							<option th:each="d : ${details}" th:value="${d.id}"
-								th:text="${d.color + ' / ' + d.size}"></option>
+								th:text="${d.color + ' / ' + d.size+' / '+d.stock+'개남음'}"></option>
 						</select>
 					</div>
 				</div>

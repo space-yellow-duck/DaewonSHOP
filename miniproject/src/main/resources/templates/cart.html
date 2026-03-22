@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="_csrf" th:content="${_csrf.token}">
 <meta name="_csrf_header" th:content="${_csrf.headerName}">
-<title>Insert title here</title>
+<title>장바구니</title>
+
 <link rel="stylesheet" th:href="@{/css/style.css}">
 <link rel="stylesheet" th:href="@{/css/cartItems.css}">
 </head>
+
 <body>
+
 <div th:replace="layout/header :: header"></div>
- <div class="container cart-page">
+
+<div class="container cart-page">
 
   <h1 class="page-title">장바구니</h1>
 
@@ -28,24 +32,35 @@
 
       <div class="cart-item" th:each="item : ${cartItems}">
 
-        <img th:src="${item.product.imageUrl}" alt="상품이미지" />
+        <!-- 이미지 -->
+        <img th:src="${item.imageUrl}" alt="상품이미지" />
 
         <div class="item-info">
-          <p class="item-name" th:text="${item.product.name}">상품명</p>
-          <p class="item-price"
-             th:text="|₩${#numbers.formatInteger(item.product.price,0,'COMMA')}|">가격</p>
 
+          <!-- 상품명 -->
+          <p class="item-name" th:text="${item.name}">상품명</p>
+
+          <!-- 옵션 -->
+          <div class="item-options">
+            <p th:each="opt : ${item.options}"
+               th:text="${opt}">옵션</p>
+          </div>
+
+          <!-- 수량 -->
           <div class="item-quantity">
             <button th:onclick="|updateQuantity(${item.id}, -1)|">-</button>
-            <span th:id = "${item.id}" th:text="${item.quantity}">1</span>
+            <span th:id="${item.id}" th:text="${item.quantity}">1</span>
             <button th:onclick="|updateQuantity(${item.id}, 1)|">+</button>
           </div>
+
         </div>
 
+        <!-- 가격 -->
         <div class="item-total">
-          <p th:id = "|itemTotalPrice${item.product.id}|" th:text="|₩${#numbers.formatInteger(item.product.price * item.quantity,0,'COMMA')}|"></p>
+          <p th:id="|itemTotalPrice${item.id}|" th:text="|₩${#numbers.formatInteger(item.totalPrice,0,'COMMA')}|"></p>
+
           <button class="remove-btn"
-                  th:onclick="|removeItem(${item.id} )|">
+                  th:onclick="|removeItem(${item.id})|">
             삭제
           </button>
         </div>
@@ -60,16 +75,21 @@
       <div class="summary-box">
         <p>
           <span>총 상품 금액</span>
-          <span id = "totalPrice" th:text="|₩${#numbers.formatInteger(totalPrice,0,'COMMA')}|"></span>
+          <span id="totalPrice"
+                th:text="|₩${#numbers.formatInteger(totalPrice,0,'COMMA')}|"></span>
         </p>
+
         <p>
           <span>배송비</span>
           <span>₩3,000</span>
         </p>
+
         <hr />
+
         <p class="total">
           <span>총 결제 금액</span>
-          <span id = "finalPrice" th:text="|₩${#numbers.formatInteger(totalPrice + 3000,0,'COMMA')}|"></span>
+          <span id="finalPrice"
+                th:text="|₩${#numbers.formatInteger(totalPrice + 3000,0,'COMMA')}|"></span>
         </p>
       </div>
 
@@ -80,7 +100,10 @@
   </div>
 
 </div>
+
 <div th:replace="layout/footer :: footer"></div>
+
 <script type="text/javascript" th:src="@{/js/cart.js}"></script>
+
 </body>
 </html>

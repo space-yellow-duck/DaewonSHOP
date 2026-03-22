@@ -23,18 +23,3 @@ function minusQty() {
 const token = document.querySelector('meta[name="_csrf"]').content;
 const header = document.querySelector('meta[name="_csrf_header"]').content;
 
-async function addCart(btn) {
-	const items = Object.entries(selectedItems).map(([id, item]) => ({
-		detailId: id,
-		quantity: item.quantity
-	}));
-
-	await fetch("/api/cart", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			[header]: token
-		},
-		body: JSON.stringify(items)
-	});
-}

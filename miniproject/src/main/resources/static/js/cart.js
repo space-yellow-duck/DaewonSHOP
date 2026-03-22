@@ -21,16 +21,16 @@ async function updateQuantity(id, diff) {
             throw new Error("수량 변경 실패");
         }
 
-        let data = await res.json()
-		console.log(data);
+        let data = await res.json();
 		let quantity = document.getElementById(data.id);
 		let totalPrice = document.getElementById("totalPrice");
 		let finalPrice = document.getElementById("finalPrice");
-		let itemPrice = document.getElementById(`itemTotalPrice${data.productId}`);
+		let itemPrice = document.getElementById(`itemTotalPrice${data.id}`);
+		console.log("토탈프라이스",data.totalPrice)
 		quantity.innerText = data.quantity.toLocaleString();
-		itemPrice.innerText = "₩"+addPrice(itemPrice,data.price);
-		totalPrice.innerText = "₩"+ addPrice(totalPrice,data.price);
-		finalPrice.innerText ="₩"+ addPrice(finalPrice,data.price);
+		itemPrice.innerText = "₩"+addPrice(itemPrice,data.totalPrice);
+		totalPrice.innerText = "₩"+ addPrice(totalPrice,data.totalPrice);
+		finalPrice.innerText ="₩"+ addPrice(finalPrice,data.totalPrice);
 		
 	
 
@@ -41,6 +41,8 @@ async function updateQuantity(id, diff) {
 }
 
 function addPrice(price,addPrice){
+	console.log(parseInt(addPrice))
+	console.log(parseInt(price.innerText.slice(1).replaceAll(",","")))
 	return (parseInt(price.innerText.slice(1).replaceAll(",",""))+parseInt(addPrice)).toLocaleString();
 }
 

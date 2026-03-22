@@ -29,15 +29,16 @@ public class ProductDetail {
 	private String size;
 	private int stock;
 	
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name="cart_item_id")
-	private List<CartItem> cartItems;
+	@OneToMany(mappedBy = "productDetail")
+	@JsonIgnore
+	private List<CartItemDetail> cartItems;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")
 	@JsonIgnore
 	private Product product;
 	
+
 	
 	
 }
