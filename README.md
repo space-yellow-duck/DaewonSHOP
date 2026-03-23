@@ -81,7 +81,7 @@ git clone https://github.com/your-repo.git
 
 # 7. 트러블슈팅 (이거 있으면 수준 올라감)
 ```
-```md
+
 ## ⚠️ 트러블슈팅
 
 ### 1. 옵션 구조 설계 문제
