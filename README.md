@@ -276,8 +276,6 @@ git clone https://github.com/your-repo.git
 
 
 ---
-
-# 7. 트러블슈팅 (이거 있으면 수준 올라감)
 ```
 
 ## ⚠️ 트러블슈팅
