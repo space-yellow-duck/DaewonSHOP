@@ -1,0 +1,261 @@
+@charset "UTF-8";
+/* 헤더 */
+.address-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* 주소 보조 텍스트 */
+.address-sub {
+  font-size: 12px;
+  color: #777;
+  margin-top: 4px;
+}
+
+/* 액션 버튼 간격 */
+.address-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+/* 링크 버튼도 버튼처럼 */
+.address-actions a {
+  text-decoration: none;
+}
+/* =========================
+   전체 레이아웃
+========================= */
+.address-page {
+  max-width: 720px;
+  margin: 50px auto;
+}
+
+/* =========================
+   주소 추가 영역 (카드)
+========================= */
+.address-add {
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.address-add form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.address-add input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.address-row {
+  display: flex;
+  gap: 10px;
+}
+
+.address-row input {
+  flex: 1;
+}
+
+/* readonly 입력 */
+input[readonly] {
+  background: #f7f7f7;
+  cursor: pointer;
+}
+
+/* =========================
+   버튼 스타일
+========================= */
+.btn-black {
+  padding: 12px 20px;
+  background: #111;
+  color: white;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-black:hover {
+  background: #000;
+}
+
+.address-row button {
+  padding: 10px 14px;
+  border: 1px solid #111;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.address-row button:hover {
+  background: #111;
+  color: white;
+}
+
+/* =========================
+   주소 리스트
+========================= */
+.address-list {
+  margin-top: 10px;
+}
+
+/* 카드형 아이템 */
+.address-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 20px;
+  margin-bottom: 12px;
+
+  border: 1px solid #eee;
+  border-radius: 12px;
+
+  background: white;
+}
+
+/* 기본 배송지 강조 */
+.address-item.default {
+  border: 1px solid #111;
+}
+
+/* 주소 텍스트 */
+.address-text {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* 기본 뱃지 */
+.default-badge {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 8px;
+
+  font-size: 11px;
+  border: 1px solid #111;
+  border-radius: 999px;
+}
+
+/* 버튼 영역 */
+.address-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* 기본 버튼 */
+.btn-small {
+  padding: 6px 12px;
+  border: 1px solid #111;
+  background: white;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.btn-small:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.btn-small:hover:not(:disabled) {
+  background: #111;
+  color: white;
+}
+
+/* 삭제 버튼 */
+.btn-danger-small {
+  padding: 6px 12px;
+  border: none;
+  background: #f5f5f5;
+  color: #d93025;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.btn-danger-small:hover {
+  background: #d93025;
+  color: white;
+}
+
+/* =========================
+   모달
+========================= */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0,0,0,0.5);
+
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+.modal-content {
+  width: 520px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+
+  animation: modalFade 0.15s ease;
+}
+
+@keyframes modalFade {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 모달 헤더 */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+  font-size: 16px;
+}
+
+/* 닫기 버튼 */
+.close {
+  cursor: pointer;
+  font-size: 20px;
+  color: #999;
+}
+
+.close:hover {
+  color: #111;
+}
+
+/* 카카오 주소 영역 */
+#postcode-container {
+  height: 420px;
+}

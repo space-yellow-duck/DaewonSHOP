@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/address.css}">
+<link rel="stylesheet" th:href="@{/css/newAddress.css}">
+</head>
+<body>
+<div th:replace="layout/header :: header"></div>
+
+<div class="address-page">
+
+  <h2>배송지 추가</h2>
+
+  <form action="/mypage/address" method="post" class="address-form">
+
+    <!-- 수령인 -->
+    <div class="form-group">
+      <label>이름</label>
+      <input type="text" name="receiverName" placeholder="수령인 이름">
+    </div>
+
+    <!-- 휴대폰 -->
+    <div class="form-group">
+      <label>휴대폰 번호</label>
+      <input type="text" name="phone" placeholder="010-1234-5678">
+    </div>
+
+    <!-- 주소 검색 -->
+    <div class="form-group">
+      <label>주소</label>
+
+      <div class="address-row">
+        <input type="text" id="postcode" name="postcode" placeholder="우편번호" readonly>
+        <button type="button" onclick="openModal()">주소 검색</button>
+      </div>
+
+      <input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소" readonly>
+      <input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소" readonly>
+      <input type="text" name="detailAddress" placeholder="상세주소">
+    </div>
+	<input type="checkbox" name="isDefault">
+    <!-- 저장 버튼 -->
+    <button type="submit" class="btn-black">저장</button>
+
+  </form>
+
+</div>
+
+<!-- 모달 -->
+<div id="addressModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>주소 검색</h3>
+      <span class="close" onclick="closeModal()">×</span>
+    </div>
+    <div id="postcode-container"></div>
+  </div>
+</div>
+<div th:replace="layout/footer :: footer"></div>
+</body>
+</html>

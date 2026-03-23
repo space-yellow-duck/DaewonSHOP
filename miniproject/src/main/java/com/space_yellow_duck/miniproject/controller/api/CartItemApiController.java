@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.space_yellow_duck.miniproject.DTO.CustomUserDetails;
-import com.space_yellow_duck.miniproject.DTO.PuttedItem;
+import com.space_yellow_duck.miniproject.DTO.CartItemRequest;
 import com.space_yellow_duck.miniproject.DTO.CartItemDto;
 import com.space_yellow_duck.miniproject.DTO.CartItemResponse;
 import com.space_yellow_duck.miniproject.Entity.CartItem;
@@ -29,8 +29,7 @@ public class CartItemApiController {
 		this.cartItemService = cartItemService;
 	}
 	@PostMapping("/api/cart-items")
-	public boolean putCartItem(@RequestBody List<PuttedItem> items,@AuthenticationPrincipal CustomUserDetails userDetails) {
-		
+	public boolean putCartItem(@RequestBody List<CartItemRequest> items,@AuthenticationPrincipal CustomUserDetails userDetails) {
 		
 		return cartItemService.addCartItem(userDetails.getUser(), items);
 		

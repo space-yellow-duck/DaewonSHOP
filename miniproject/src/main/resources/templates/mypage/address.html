@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/address.css}">
+</head>
+<body>
+<div th:replace="layout/header :: header"></div>
+<div class="address-page">
+
+  <!-- 헤더 -->
+  <div class="address-header">
+    <h2>배송지 관리</h2>
+    <a href="/mypage/address/new" class="btn-black">배송지 추가</a>
+  </div>
+
+  <!-- 리스트 -->
+  <div class="address-list">
+
+    <div class="address-item"
+         th:each="addr : ${addresses}"
+         th:classappend="${addr.isDefault} ? ' default'">
+
+      <!-- 주소 정보 -->
+      <div class="address-info">
+        <p class="address-text" th:text="${addr.roadAddress + ' ' + addr.detailAddress}">
+          서울시 강남구 ...
+        </p>
+
+        <p class="address-sub">
+          (<span th:text="${addr.postcode}"></span>)
+          <span th:text="${addr.jibunAddress}"></span>
+        </p>
+
+        <span class="default-badge" th:if="${addr.isDefault}">
+          기본 배송지
+        </span>
+      </div>
+
+      <!-- 액션 버튼 -->
+      <div class="address-actions">
+
+        <!-- 수정 -->
+        <a th:href="@{/mypage/address/edit/{id}(id=${addr.id})}"
+           class="btn-small">
+          수정
+        </a>
+
+        <!-- 기본 설정 -->
+        <form th:action="@{/mypage/address/default}" method="post">
+          <input type="hidden" name="addressId" th:value="${addr.id}">
+          <button type="submit"
+                  class="btn-small"
+                  th:disabled="${addr.isDefault}">
+            기본 설정
+          </button>
+        </form>
+
+        <!-- 삭제 -->
+        <form th:action="@{/mypage/address/delete}" method="post">
+          <input type="hidden" name="addressId" th:value="${addr.id}">
+          <button type="submit" class="btn-danger-small">
+            삭제
+          </button>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<div th:replace="layout/footer :: footer"></div>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" th:src="@{/js/address.js}"></script>
+</body>
+</html>

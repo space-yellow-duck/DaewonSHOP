@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PuttedItem {
+public class CartItemRequest {
 
     private SaleType type; // SINGLE, MULTI_PACK, SET
 

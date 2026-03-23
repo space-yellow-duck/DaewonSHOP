@@ -43,6 +43,40 @@ header{
 nav a{
   margin-left:24px;
 }
+/* 유저 영역 */
+.user-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+/* 로그아웃 버튼 */
+.logout-btn {
+  padding: 6px 12px;
+  border: 1px solid #111;
+  background: white;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 12px;
+  transition: 0.2s;
+}
+
+.logout-btn:hover {
+  background: #111;
+  color: white;
+}
+
+/* 네비 hover 효과 (전체 통일감) */
+nav a {
+  margin-left: 24px;
+  position: relative;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: #555;
+}
 
 /* hero */
 

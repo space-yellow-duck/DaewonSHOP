@@ -13,13 +13,16 @@
 			<nav>
 				<a href="/">홈</a> <a href="/products">상품</a> <a href="/cart">장바구니</a>
 				<a href="/orders">주문내역</a>
-					<a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
 
-				<div sec:authorize="isAuthenticated()">
-					<span sec:authentication="name"></span>님 환영합니다.
+				<!-- ⭐ 마이페이지 (로그인 시만) -->
+				<a sec:authorize="isAuthenticated()" href="/mypage">마이페이지</a> <a
+					sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
+
+				<div sec:authorize="isAuthenticated()" class="user-box">
+					<span sec:authentication="name"></span>님
 
 					<form th:action="@{/logout}" method="post">
-						<button type="submit">로그아웃</button>
+						<button type="submit" class="logout-btn">로그아웃</button>
 					</form>
 				</div>
 			</nav>

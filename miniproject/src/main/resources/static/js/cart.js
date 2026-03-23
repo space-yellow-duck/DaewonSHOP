@@ -5,6 +5,11 @@
 async function updateQuantity(id, diff) {
 	const token = document.querySelector('meta[name="_csrf"]').content;
 	const header = document.querySelector('meta[name="_csrf_header"]').content;
+	const quantity = document.getElementById(id);
+	if(quantity.innerText == 1 & diff == -1){
+		removeItem(id);
+		return;
+	}
     try {
         const res = await fetch(`/api/cart-items/${id}`, {
             method: "PATCH",
@@ -22,7 +27,7 @@ async function updateQuantity(id, diff) {
         }
 
         let data = await res.json();
-		let quantity = document.getElementById(data.id);
+		
 		let totalPrice = document.getElementById("totalPrice");
 		let finalPrice = document.getElementById("finalPrice");
 		let itemPrice = document.getElementById(`itemTotalPrice${data.id}`);

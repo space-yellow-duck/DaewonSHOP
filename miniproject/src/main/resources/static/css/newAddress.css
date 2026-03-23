@@ -1,0 +1,28 @@
+@charset "UTF-8";
+/* 폼 그룹 */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+/* 라벨 */
+.form-group label {
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+/* 입력 */
+.address-form input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* 포커스 */
+.address-form input:focus {
+  outline: none;
+  border: 1px solid #111;
+}

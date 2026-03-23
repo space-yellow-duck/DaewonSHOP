@@ -1,12 +1,18 @@
 package com.space_yellow_duck.miniproject.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.space_yellow_duck.miniproject.DTO.CartItemDto;
-import com.space_yellow_duck.miniproject.DTO.PuttedItem;
+import com.space_yellow_duck.miniproject.DTO.CartItemRequest;
 import com.space_yellow_duck.miniproject.Entity.CartItem;
 import com.space_yellow_duck.miniproject.Entity.CartItemDetail;
 import com.space_yellow_duck.miniproject.Entity.Product;
@@ -77,7 +83,7 @@ public class CartItemService {
 	}
 
 	@Transactional
-	public boolean addCartItem(User user, List<PuttedItem> items) {
+	public boolean addCartItem(User user, List<CartItemRequest> items) {
 		
 		SaleType type = items.get(0).getType();
 
@@ -89,12 +95,14 @@ public class CartItemService {
 		}
 		switch (type) {
 		case SINGLE:
-			for (PuttedItem item : items) {
+			for (CartItemRequest item : items) {
 				addSingleItem(item,user);
 			}
 			break;
 		case MULTI_PACK:
-			
+			for(CartItemRequest item : items) {
+				addMultiPackItem(user, item);
+			}
 			break;
 		case SET:
 			break;
@@ -122,7 +130,7 @@ public class CartItemService {
 	}
 	
 	
-	public void addSingleItem(PuttedItem item,User user) {
+	public void addSingleItem(CartItemRequest item,User user) {
 
 	    CartItem cartItem = new CartItem();
 	    cartItem.setSaleType(SaleType.SINGLE);
@@ -140,6 +148,61 @@ public class CartItemService {
 	    // ⭐ 핵심: 양방향 연결
 	    cartItem.addDetail(detail);
 
+	    cartItemRepository.save(cartItem);
+	}
+	
+	public void addMultiPackItem(User user, CartItemRequest request) {// 1️⃣ 정렬 (중복 포함 유지)
+	    List<Long> sortedIds = new ArrayList<>(request.getDetailIds());
+	    Collections.sort(sortedIds);
+
+	    // 2️⃣ 기존 장바구니 조회
+	    List<CartItem> cartItems = cartItemRepository.findAllByUser(user);
+
+	    // 3️⃣ 동일 조합 찾기
+	    for (CartItem item : cartItems) {
+
+	        if (item.getSaleType() != SaleType.MULTI_PACK) continue;
+
+	        List<Long> existingIds = item.getDetails().stream()
+	                .map(d -> d.getProductDetail().getId())
+	                .sorted()
+	                .toList();
+
+	        if (existingIds.equals(sortedIds)) {
+	            item.setQuantity(item.getQuantity() + request.getQuantity());
+	            return;
+	        }
+	    }
+
+	    // 4️⃣ 새 CartItem 생성
+	    CartItem cartItem = new CartItem();
+	    cartItem.setUser(user);
+	    cartItem.setSaleType(SaleType.MULTI_PACK);
+	    cartItem.setQuantity(request.getQuantity());
+
+	    // 🔥 5️⃣ ID → ProductDetail Map으로 조회 (중복 대응 핵심)
+	    List<ProductDetail> productDetails =
+	            productDetailRepository.findAllById(
+	                    new HashSet<>(sortedIds) // 중복 제거해서 조회
+	            );
+
+	    Map<Long, ProductDetail> detailMap = productDetails.stream()
+	            .collect(Collectors.toMap(ProductDetail::getId, d -> d));
+
+	    // 🔥 6️⃣ 원본 ID 리스트 기준으로 생성 (중복 유지)
+	    for (Long id : sortedIds) {
+	        ProductDetail pd = detailMap.get(id);
+
+	        if (pd == null) {
+	            throw new IllegalArgumentException("상품 없음: " + id);
+	        }
+
+	        CartItemDetail detail = new CartItemDetail();
+	        detail.setProductDetail(pd);
+	        cartItem.addDetail(detail);
+	    }
+
+	    // 7️⃣ 저장
 	    cartItemRepository.save(cartItem);
 	}
 }

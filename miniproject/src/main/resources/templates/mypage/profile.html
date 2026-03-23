@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>내 프로필</title>
+
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/mypage.css}">
+<link rel="stylesheet" th:href="@{/css/profile.css}">
+</head>
+
+<body>
+
+<div th:replace="layout/header :: header"></div>
+
+<div class="profile-menu">
+
+  <h2 class="page-title">내 프로필</h2>
+
+  <div class="menu-list">
+
+    <a href="/mypage/profile/name" class="menu-item">
+      <div>
+        <p class="menu-title">이름 변경</p>
+        <p class="menu-desc">프로필 이름을 변경합니다</p>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+
+    <a href="/mypage/profile/image" class="menu-item">
+      <div>
+        <p class="menu-title">프로필 이미지 변경</p>
+        <p class="menu-desc">프로필 사진을 수정합니다</p>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+
+    <a href="/mypage/profile/info" class="menu-item">
+      <div>
+        <p class="menu-title">회원정보 변경</p>
+        <p class="menu-desc">이메일 및 기본 정보를 수정합니다</p>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+
+    <a href="/mypage/profile/password" class="menu-item">
+      <div>
+        <p class="menu-title">비밀번호 변경</p>
+        <p class="menu-desc">보안을 위해 비밀번호를 변경합니다</p>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+
+    <a href="/mypage/profile/address" class="menu-item">
+      <div>
+        <p class="menu-title">배송지 관리</p>
+        <p class="menu-desc">배송지를 추가/삭제합니다</p>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+
+    <a href="/mypage/profile/delete" class="menu-item danger">
+      <div>
+        <p class="menu-title">회원 탈퇴</p>
+        <p class="menu-desc">계정을 삭제합니다</p>
+      </div>
+      <span class="arrow">›</span>
+    </a>
+
+  </div>
+
+</div>
+
+<div th:replace="layout/footer :: footer"></div>
+
+</body>
+</html>
