@@ -267,12 +267,15 @@ CREATE TABLE cart_item_detail (
 ```
 
 ## 🚀 실행 방법
-
+application-local.properties에
+spring.datasource.url
+spring.datasource.username
+spring.datasource.password 입력
 1. 프로젝트 클론
 
 ```bash
-git clone https://github.com/your-repo.git
-./gradlew bootRun
+git clone https://github.com/space-yellow-duck/DaewonSHOP.git
+./mvnw spring-boot:run
 
 
 ---
